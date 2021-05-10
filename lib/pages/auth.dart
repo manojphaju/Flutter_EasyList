@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/products.dart';
 
 class AuthPage extends StatelessWidget {
   @override
@@ -14,12 +13,7 @@ class AuthPage extends StatelessWidget {
         child: ElevatedButton(
           child: Text('Login'),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (BuildContext context) => ProductsPage(),
-              ),
-            );
+            Navigator.pushReplacementNamed(context, '/');
           },
         ),
       ),

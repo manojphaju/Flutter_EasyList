@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './pages/product.dart';
-
 class Products extends StatelessWidget {
   final List<Map> products;
   final Function deleteProduct;
-
+ 
   Products(this.products, {this.deleteProduct});
 
   Widget _buildProductItem(BuildContext context, int index) {
@@ -19,15 +17,8 @@ class Products extends StatelessWidget {
             alignment: MainAxisAlignment.center,
             children: [
               TextButton(
-                onPressed: () => Navigator.push<bool>(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => ProductPage(
-                      products[index]['title'],
-                      products[index]['image'],
-                    ),
-                  ),
-                ).then((bool value) => {
+                onPressed: () => Navigator.pushNamed<bool>(context, '/product/' + index.toString())
+                .then((bool value) => {
                       if (value) {deleteProduct(index)}
                     }),
                 child: Text('Details'),
