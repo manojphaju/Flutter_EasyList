@@ -1,23 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './product_control.dart';
 import './products.dart';
 
 class ProductManager extends StatelessWidget {
-  final List<Map<String, String>> products;
-  final Function addProduct;
-  final Function deleteProduct;
+  final List<Map<String, dynamic>> products;
 
-  ProductManager(this.products, this.addProduct, this.deleteProduct);
+
+  ProductManager(this.products);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProductControl(addProduct),
         Expanded(
-          child: Products(products, deleteProduct: deleteProduct),
+          child: Products(products),
         ),
       ],
     );
