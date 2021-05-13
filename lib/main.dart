@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/pages/auth.dart';
 
 import './pages/products_admin.dart';
 import './pages/product.dart';
@@ -36,8 +37,10 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.deepOrange, accentColor: Colors.deepPurple),
       // home: AuthPage(),
       routes: {
-        '/': (BuildContext context) =>
+        '/productPage': (BuildContext context) =>
             ProductsPage(_products),
+        '/': (BuildContext context) =>
+            AuthPage(),
         '/admin': (BuildContext context) => ProductsAdminPage(_addProduct, _deleteProduct),
       },
       onGenerateRoute: (RouteSettings settings) {
