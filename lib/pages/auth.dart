@@ -13,6 +13,8 @@ class _AuthPageState extends State<AuthPage> {
   String password;
   bool acceptTerms = false;
 
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   DecorationImage _buildDecorationImage() {
     return DecorationImage(
       fit: BoxFit.cover,
@@ -23,11 +25,17 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildEmailTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
           labelText: 'Email', filled: true, fillColor: Colors.white),
       keyboardType: TextInputType.emailAddress,
-      onChanged: (String value) {
+      validator: (String value) {
+        if (value.isEmpty)
+          return 'Email is required';
+        else
+          return null;
+      },
+      onSaved: (String value) {
         setState(
           () {
             email = value;
@@ -38,14 +46,20 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   Widget _buildPasswordTextField() {
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         labelText: 'Password',
         filled: true,
         fillColor: Colors.white,
       ),
       obscureText: true,
-      onChanged: (String value) {
+      validator: (String value) {
+        if (value.isEmpty)
+          return 'Password is required';
+        else
+          return null;
+      },
+      onSaved: (String value) {
         setState(
           () {
             password = value;
@@ -68,6 +82,10 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void _submitForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
     Navigator.pushReplacementNamed(context, '/productPage');
   }
 
@@ -80,25 +98,27 @@ class _AuthPageState extends State<AuthPage> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Container(
-        
-        padding: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(image: _buildDecorationImage()),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              width: targetWidth,
-              child: Column(
-                children: [
-                  _buildEmailTextField(),
-                  SizedBox(height: 10.0),
-                  _buildPasswordTextField(),
-                  _buildSwitchListTile(),
-                  ElevatedButton(
-                    onPressed: _submitForm,
-                    child: Text('LOGIN'),
-                  ),
-                ],
+      body: Form(
+        key: _formKey,
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(image: _buildDecorationImage()),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Container(
+                width: targetWidth,
+                child: Column(
+                  children: [
+                    _buildEmailTextField(),
+                    SizedBox(height: 10.0),
+                    _buildPasswordTextField(),
+                    _buildSwitchListTile(),
+                    ElevatedButton(
+                      onPressed: _submitForm,
+                      child: Text('LOGIN'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

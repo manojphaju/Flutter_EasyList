@@ -24,6 +24,12 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _updateProduct(int index, Map<String, dynamic> product) {
+    setState(() {
+      _products[index] = product;
+    });
+  }
+
   void _deleteProduct(int index) {
     setState(() {
       _products.removeAt(index);
@@ -37,11 +43,10 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.deepOrange, accentColor: Colors.deepPurple),
       // home: AuthPage(),
       routes: {
-        '/productPage': (BuildContext context) =>
-            ProductsPage(_products),
-        '/': (BuildContext context) =>
-            AuthPage(),
-        '/admin': (BuildContext context) => ProductsAdminPage(_addProduct, _deleteProduct),
+        '/': (BuildContext context) => AuthPage(),
+        '/productPage': (BuildContext context) => ProductsPage(_products),
+        '/admin': (BuildContext context) =>
+            ProductsAdminPage(_addProduct, _updateProduct, _deleteProduct, _products),
       },
       onGenerateRoute: (RouteSettings settings) {
         List<String> pathElements = settings.name.split('/');
@@ -61,8 +66,7 @@ class _MyAppState extends State<MyApp> {
       },
       onUnknownRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-          builder: (BuildContext context) =>
-              ProductsPage(_products),
+          builder: (BuildContext context) => ProductsPage(_products),
         );
       },
     );
