@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_course/pages/auth.dart';
 
+import './pages/auth.dart';
 import './pages/products_admin.dart';
 import './pages/product.dart';
 import './pages/products.dart';
