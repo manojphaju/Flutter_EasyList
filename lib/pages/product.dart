@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+import '../models/product_model.dart';
+import '../scoped_model/main_scoped_model.dart';
 
 class ProductPage extends StatelessWidget {
-  final String title;
-  final String imageUrl;
+  final int productIndex;
 
-  ProductPage(this.title, this.imageUrl);
+  ProductPage(this.productIndex);
 
   showWarningDialog(BuildContext context) {
     showDialog(
@@ -36,32 +39,36 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Product Detail'),
-      ),
-      body: WillPopScope(
-        onWillPop: () {
-          Navigator.pop(context, false);
-          return Future.value(false);
-        },
-        child: Column(
-          children: [
-            Image.asset(imageUrl),
-            Text(title),
-            Container(
-              padding: EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                child: Text('DELETE'),
-                onPressed: () => showWarningDialog(context),
-              ),
-            ),
-            Center(
-              child: Text('On the product page'),
-            ),
-          ],
+    return ScopedModelDescendant<MainScopedModel>(builder:
+        (BuildContext context, Widget child, MainScopedModel model) {
+      final ProductModel product = model.allProducts[productIndex];
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Product Detail'),
         ),
-      ),
-    );
+        body: WillPopScope(
+          onWillPop: () {
+            Navigator.pop(context, false);
+            return Future.value(false);
+          },
+          child: Column(
+            children: [
+              Image.asset(product.image),
+              Text(product.title),
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: ElevatedButton(
+                  child: Text('DELETE'),
+                  onPressed: () => showWarningDialog(context),
+                ),
+              ),
+              Center(
+                child: Text('On the product page'),
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

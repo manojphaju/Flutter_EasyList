@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import '../products/address_tag.dart';
 import '../ui_elements/title_default.dart';
 import './price_tag.dart';
+import '../../models/product_model.dart';
+import '../../scoped_model/main_scoped_model.dart';
 
 class ProductCard extends StatelessWidget {
-  final Map<String, dynamic> product;
+  final ProductModel product;
   final int productIndex;
 
   ProductCard(this.product, this.productIndex);
@@ -15,10 +18,10 @@ class ProductCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TitleDefault(product['title']),
+        TitleDefault(product.title),
         SizedBox(width: 8.0),
         PriceTag(
-          product['price'].toString(),
+          product.price.toString(),
         ),
       ],
     );
@@ -34,11 +37,19 @@ class ProductCard extends StatelessWidget {
               context, '/product/' + productIndex.toString()),
           icon: Icon(Icons.info),
         ),
-        IconButton(
-          color: Colors.red,
-          onPressed: () => Navigator.pushNamed<bool>(
-              context, '/product/' + productIndex.toString()),
-          icon: Icon(Icons.favorite_border),
+        ScopedModelDescendant<MainScopedModel>(
+          builder: (BuildContext context, Widget child, MainScopedModel model) {
+            return IconButton(
+              icon: Icon(model.allProducts[productIndex].isFavorite
+                  ? Icons.favorite
+                  : Icons.favorite_border),
+              color: Colors.red,
+              onPressed: () {
+                model.selectProduct(productIndex);
+                model.toggleProductFavoriteStatus();
+              },
+            );
+          },
         ),
       ],
     );
@@ -49,9 +60,10 @@ class ProductCard extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          Image.asset(product['image']),
+          Image.asset(product.image),
           _buildTitlePriceRow(),
-          AddressTag(product['address']),
+          AddressTag(product.description),
+          Text(product.userEmail),
           _buildButtonBar(context)
         ],
       ),

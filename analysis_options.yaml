@@ -1,0 +1,4 @@
+#this file is used for removing mixin_inherits_from_not_object while mixing two model class in scoped_model
+analyzer:
+  errors:
+    mixin_inherits_from_not_object: ignore
