@@ -28,31 +28,30 @@ class ProductCard extends StatelessWidget {
   }
 
   Widget _buildButtonBar(BuildContext context) {
-    return ButtonBar(
-      alignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          color: Theme.of(context).accentColor,
-          onPressed: () => Navigator.pushNamed<bool>(
-              context, '/product/' + productIndex.toString()),
-          icon: Icon(Icons.info),
-        ),
-        ScopedModelDescendant<MainScopedModel>(
-          builder: (BuildContext context, Widget child, MainScopedModel model) {
-            return IconButton(
-              icon: Icon(model.allProducts[productIndex].isFavorite
-                  ? Icons.favorite
-                  : Icons.favorite_border),
-              color: Colors.red,
-              onPressed: () {
-                model.selectProduct(productIndex);
-                model.toggleProductFavoriteStatus();
-              },
-            );
-          },
-        ),
-      ],
-    );
+    return ScopedModelDescendant<MainScopedModel>(
+        builder: (BuildContext context, Widget child, MainScopedModel model) {
+      return ButtonBar(
+        alignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            color: Theme.of(context).accentColor,
+            onPressed: () => Navigator.pushNamed<bool>(
+                context, '/product/' + model.allProducts[productIndex].id),
+            icon: Icon(Icons.info),
+          ),
+          IconButton(
+            icon: Icon(model.allProducts[productIndex].isFavorite
+                ? Icons.favorite
+                : Icons.favorite_border),
+            color: Colors.red,
+            onPressed: () {
+              model.selectProduct(model.allProducts[productIndex].id);
+              model.toggleProductFavoriteStatus();
+            },
+          )
+        ],
+      );
+    });
   }
 
   @override
@@ -60,7 +59,12 @@ class ProductCard extends StatelessWidget {
     return Card(
       child: Column(
         children: [
-          Image.asset(product.image),
+          FadeInImage(
+            placeholder: AssetImage('assets/food.jpg'),
+            image: NetworkImage(product.image),
+            height: 300.0,
+            fit: BoxFit.cover,
+          ),
           _buildTitlePriceRow(),
           AddressTag(product.description),
           Text(product.userEmail),

@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 import '../models/product_model.dart';
-import '../scoped_model/main_scoped_model.dart';
 
 class ProductPage extends StatelessWidget {
-  final int productIndex;
+  final ProductModel product;
 
-  ProductPage(this.productIndex);
+  ProductPage(this.product);
 
   showWarningDialog(BuildContext context) {
     showDialog(
@@ -39,10 +37,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScopedModelDescendant<MainScopedModel>(builder:
-        (BuildContext context, Widget child, MainScopedModel model) {
-      final ProductModel product = model.allProducts[productIndex];
-      return Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Product Detail'),
         ),
@@ -53,7 +48,12 @@ class ProductPage extends StatelessWidget {
           },
           child: Column(
             children: [
-              Image.asset(product.image),
+              FadeInImage(
+                placeholder: AssetImage('assets/food.jpg'),
+                image: NetworkImage(product.image),
+                height: 300.0,
+                fit: BoxFit.cover,
+              ),
               Text(product.title),
               Container(
                 padding: EdgeInsets.all(10.0),
@@ -69,6 +69,5 @@ class ProductPage extends StatelessWidget {
           ),
         ),
       );
-    });
   }
 }

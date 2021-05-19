@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/models/product_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './pages/auth.dart';
@@ -18,18 +19,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final MainScopedModel model = MainScopedModel();
   @override
   Widget build(BuildContext context) {
     return ScopedModel(
-      model: MainScopedModel(),
+      model: model,
       child: MaterialApp(
         theme: ThemeData(
             primarySwatch: Colors.deepOrange, accentColor: Colors.deepPurple),
         // home: AuthPage(),
         routes: {
           '/': (BuildContext context) => AuthPage(),
-          '/productPage': (BuildContext context) => ProductsPage(),
-          '/admin': (BuildContext context) => ProductsAdminPage(),
+          '/productPage': (BuildContext context) => ProductsPage(model),
+          '/admin': (BuildContext context) => ProductsAdminPage(model),
         },
         onGenerateRoute: (RouteSettings settings) {
           List<String> pathElements = settings.name.split('/');
@@ -37,16 +39,20 @@ class _MyAppState extends State<MyApp> {
             return null;
           }
           if (pathElements[1] == 'product') {
-            final int index = int.parse(pathElements[2]);
+            final String productId = pathElements[2];
+            final ProductModel product =
+                model.allProducts.firstWhere((ProductModel product) {
+              return product.id == productId;
+            });
             return MaterialPageRoute<bool>(
-              builder: (BuildContext context) => ProductPage(index),
+              builder: (BuildContext context) => ProductPage(product),
             );
           }
           return null;
         },
         onUnknownRoute: (RouteSettings settings) {
           return MaterialPageRoute(
-            builder: (BuildContext context) => ProductsPage(),
+            builder: (BuildContext context) => ProductsPage(model),
           );
         },
       ),

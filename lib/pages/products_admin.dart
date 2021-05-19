@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/scoped_model/main_scoped_model.dart';
 
 import 'product_edit.dart';
 import '../pages/product_list.dart';
 
 class ProductsAdminPage extends StatelessWidget {
+  final MainScopedModel model;
 
-
-  ProductsAdminPage();
+  ProductsAdminPage(this.model);
 
   Widget _buildDrawer(BuildContext context) {
     return Drawer(
@@ -55,10 +56,7 @@ class ProductsAdminPage extends StatelessWidget {
         drawer: _buildDrawer(context),
         appBar: _buildAppBar(),
         body: TabBarView(
-          children: [
-            ProductEditPage(),
-            ProductListPage()
-          ],
+          children: [ProductEditPage(), ProductListPage(model)],
         ),
       ),
     );
