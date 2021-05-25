@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_course/scoped_model/main_scoped_model.dart';
+import 'package:flutter_course/widgets/ui_elements/logout_list_tile.dart';
 
 import 'product_edit.dart';
 import '../pages/product_list.dart';
@@ -22,9 +23,11 @@ class ProductsAdminPage extends StatelessWidget {
             leading: Icon(Icons.shop),
             title: Text('All Products'),
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/productPage');
+              Navigator.pushReplacementNamed(context, '/');
             },
-          )
+          ),
+          Divider(),
+          LogoutListTile(),
         ],
       ),
     );
