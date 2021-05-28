@@ -27,6 +27,12 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
+	<!-- permission to camera -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Image is used as product image</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Image is used as product image</string>
+	<!-- permission to camera ends -->
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

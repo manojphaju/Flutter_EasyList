@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_course/widgets/form_input/image.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../models/product_model.dart';
@@ -111,6 +112,10 @@ class _ProductEditPage extends State<ProductEditPage> {
               _buildTitleTextField(product),
               _buildPriceTextField(product),
               _buildDescriptionTextField(product),
+              SizedBox(
+                height: 10.0,
+              ),
+              ImageInput(),
               SizedBox(
                 height: 10.0,
               ),

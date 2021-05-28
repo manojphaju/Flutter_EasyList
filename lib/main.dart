@@ -9,9 +9,14 @@ import './pages/product.dart';
 import './pages/products.dart';
 import './scoped_model/main_scoped_model.dart';
 
-main() => runApp(MyApp());
+main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
+
+
+
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();

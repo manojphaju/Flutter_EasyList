@@ -2,3 +2,12 @@ scoped_model - for generic
 http - for api
 shared_preferences - for storing token in local device
 rxdart - working with async ie emit action
+map_view - to work with map
+image_picker - to access from camera and gallery
+
+
+
+
+
+flutter clean
+flutter packages get
