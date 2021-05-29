@@ -79,7 +79,7 @@ class _ProductEditPage extends State<ProductEditPage> {
       builder: (BuildContext context, Widget child, MainScopedModel model) {
         return model.isLoading
             ? Center(
-                child: CircularProgressIndicator(),
+                child: Theme.of(context).platform == TargetPlatform.iOS ? CupertinoActivityIndicator() : CircularProgressIndicator(),
               )
             : ElevatedButton(
                 onPressed: () => _submitForm(

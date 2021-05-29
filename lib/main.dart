@@ -8,15 +8,13 @@ import './pages/products_admin.dart';
 import './pages/product.dart';
 import './pages/products.dart';
 import './scoped_model/main_scoped_model.dart';
+import './shared/adaptive_theme.dart';
 
 main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
-
-
   @override
   State<StatefulWidget> createState() {
     return _MyAppState();
@@ -43,8 +41,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModel(
       model: _model,
       child: MaterialApp(
-        theme: ThemeData(
-            primarySwatch: Colors.deepOrange, accentColor: Colors.deepPurple),
+        theme: getAdaptiveThemeData(context),
         // home: AuthPage(),
         routes: {
           '/': (BuildContext context) =>
