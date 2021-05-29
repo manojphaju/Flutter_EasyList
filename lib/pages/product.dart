@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/product_model.dart';
+import '../widgets/products/product_fab.dart';
 
 class ProductPage extends StatelessWidget {
   final ProductModel product;
@@ -48,26 +49,20 @@ class ProductPage extends StatelessWidget {
           },
           child: Column(
             children: [
+              Hero(
+                tag: product.id,
+                child: 
               FadeInImage(
                 placeholder: AssetImage('assets/food.jpg'),
                 image: NetworkImage(product.image),
                 height: 300.0,
                 fit: BoxFit.cover,
-              ),
+              ),),
               Text(product.title),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: ElevatedButton(
-                  child: Text('DELETE'),
-                  onPressed: () => showWarningDialog(context),
-                ),
-              ),
-              Center(
-                child: Text('On the product page'),
-              ),
             ],
           ),
         ),
+        floatingActionButton: ProductFAB(product),
       );
   }
 }
