@@ -5,6 +5,7 @@ rxdart - working with async ie emit action
 map_view - to work with map
 image_picker - to access from camera and gallery
 url_launcher - to open mail box to send mail
+flutter_launcher_icons: ^0.9.0 - used to publish icon
 
 
 

@@ -41,6 +41,7 @@ class _MyAppState extends State<MyApp> {
     return ScopedModel(
       model: _model,
       child: MaterialApp(
+        title: 'EasyList',
         theme: getAdaptiveThemeData(context),
         // home: AuthPage(),
         routes: {
